@@ -1,0 +1,20 @@
+{
+	"name": "martindilling/anagram",
+	"description": "Check if two words are anagrams.",
+	"minimum-stability": "dev",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Martin Dilling-Hansen",
+			"email": "martindilling@gmail.com"
+		}
+	],
+	"require": {
+		"phpunit/phpunit": "4.4.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Martindilling\\Anagram\\": "src/"
+		}
+	}
+}
