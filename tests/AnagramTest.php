@@ -14,58 +14,81 @@ class AnagramTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function empty_strings_not_anagrams()
     {
-        $this->assertFalse($this->anagram->check('',''));
+        $this->shouldFail('', '');
     }
 
     /** @test */
     public function different_lengths_not_anagrams()
     {
-        $this->assertFalse($this->anagram->check('a',''));
+        $this->shouldFail('a', '');
     }
 
     /** @test */
     public function equal_strings_not_anagrams()
     {
-        $this->assertFalse($this->anagram->check('a','a'));
+        $this->shouldFail('a', 'a');
     }
 
     /** @test */
     public function different_strings_not_anagram()
     {
-        $this->assertFalse($this->anagram->check('a','b'));
+        $this->shouldFail('a', 'b');
     }
 
     /** @test */
     public function different_strings_is_anagram()
     {
-        $this->assertTrue($this->anagram->check('ab','ba'));
+        $this->shouldPass('ab', 'ba');
     }
 
     /** @test */
     public function ignore_case()
     {
-        $this->assertTrue($this->anagram->check('aB','bA'));
+        $this->shouldPass('aB', 'bA');
     }
 
     /** @test */
     public function ignore_spaces()
     {
-        $this->assertTrue($this->anagram->check('Tom Marvolo Riddle','I am Lord Voldemort'));
+        $this->shouldPass('Tom Marvolo Riddle', 'I am Lord Voldemort');
     }
 
     /** @test */
     public function more_non_anagrams()
     {
-        $this->assertFalse($this->anagram->check('Silent','Nothin'));
-        $this->assertFalse($this->anagram->check('Dashed','Salmon'));
-        $this->assertFalse($this->anagram->check('idle','cooking'));
+        $this->shouldFail('Silent', 'Nothin');
+        $this->shouldFail('Dashed', 'Salmon');
+        $this->shouldFail('idle', 'cooking');
     }
 
     /** @test */
     public function more_anagrams()
     {
-        $this->assertTrue($this->anagram->check('Silent','Listen'));
-        $this->assertTrue($this->anagram->check('Dashed','Shaded'));
-        $this->assertTrue($this->anagram->check('idle','lied'));
+        $this->shouldPass('Silent', 'Listen');
+        $this->shouldPass('Dashed', 'Shaded');
+        $this->shouldPass('idle', 'lied');
+    }
+
+
+    /**
+     * Assert the two strings are not anagrams
+     *
+     * @param string $string1
+     * @param string $string2
+     */
+    private function shouldFail($string1, $string2)
+    {
+        $this->assertFalse($this->anagram->check($string1, $string2));
+    }
+
+    /**
+     * Assert the two strings are anagrams
+     *
+     * @param string $string1
+     * @param string $string2
+     */
+    private function shouldPass($string1, $string2)
+    {
+        $this->assertTrue($this->anagram->check($string1, $string2));
     }
 }
